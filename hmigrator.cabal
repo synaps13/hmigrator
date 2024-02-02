@@ -1,0 +1,78 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           hmigrator
+version:        0.0.0.1
+description:    Please see the README on GitHub at <https://github.com/githubuser/hmigrator#readme>
+homepage:       https://github.com/githubuser/hmigrator#readme
+bug-reports:    https://github.com/githubuser/hmigrator/issues
+author:         Rahimgulov Rustam
+maintainer:     rahimgulov.rustam@gmail..com
+copyright:      2024 Rahimgulov Rustam
+license:        BSD-3-Clause
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/hmigrator
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_hmigrator
+  autogen-modules:
+      Paths_hmigrator
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      base >=4.7 && <5
+    , directory >=1.3
+    , filepath >=1.4
+    , text >=2.0
+  default-language: Haskell2010
+
+executable hmigrator-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_hmigrator
+  autogen-modules:
+      Paths_hmigrator
+  hs-source-dirs:
+      app
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , directory >=1.3
+    , filepath >=1.4
+    , hmigrator
+    , text >=2.0
+  default-language: Haskell2010
+
+test-suite hmigrator-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_hmigrator
+  autogen-modules:
+      Paths_hmigrator
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      QuickCheck >=2.14
+    , base >=4.7 && <5
+    , directory >=1.3
+    , filepath >=1.4
+    , hmigrator
+    , hspec >=2.4
+    , text >=2.0
+  default-language: Haskell2010
