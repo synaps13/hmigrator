@@ -1,5 +1,5 @@
 name:                hmigrator
-version:             0.0.0.1
+version:             0.0.0.2
 github:              "synaps13/hmigrator"
 license:             BSD-3-Clause
 author:              "Rahimgulov Rustam"
@@ -24,6 +24,9 @@ dependencies:
 - directory >= 1.3
 - filepath >= 1.4
 - text >= 2.0
+- hasql >= 1.6
+- murmur-hash >= 0.1
+- bytestring >= 0.11
 
 ghc-options:
 - -Wall

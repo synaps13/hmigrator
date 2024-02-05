@@ -2,7 +2,8 @@
 
 import Data.List (intercalate)
 import GHC.IO (bracket)
-import Lib (getFileNames, getSqlFiles)
+import Hasql.Connection (settings)
+import Lib (withConnection, runMigrations, getFileNames, getSqlFiles)
 import System.Directory (createDirectory, removeDirectoryRecursive)
 import System.FilePath ()
 import Test.Hspec (around_, describe, hspec, it, shouldBe)
@@ -37,6 +38,10 @@ main = hspec $ do
 
         length names `shouldBe` 5
 
+    it "Runs migrations" $ do
+      let set = settings "localhost" 5432 "postgres" "postgres" "postgres"
+      withConnection set (runMigrations "./test/migrations")
+
 withTempDirectory :: IO () -> IO ()
 withTempDirectory action = bracket (createDirectory "testdir") (\_ -> removeDirectoryRecursive "testdir") (const action)
 
@@ -55,6 +60,6 @@ genFlywayFilename = do
 -- Generate a random filename
 genRandomFilename :: Gen String
 genRandomFilename = do
-    name <- listOf1 $ elements (['a'..'z'] ++ ['A'..'Z'] ++ ['0'..'9'])
-    let filename = name ++ ".sql"
-    return filename
+  name <- listOf1 $ elements (['a' .. 'z'] ++ ['A' .. 'Z'] ++ ['0' .. '9'])
+  let filename = name ++ ".sql"
+  return filename
