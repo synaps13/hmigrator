@@ -6,7 +6,9 @@ cabal-version: 2.2
 
 name:           hmigrator
 version:        0.0.0.2
+synopsis:       Java Flyway inspired database migration tool and library
 description:    Please see the README on GitHub at <https://github.com/synaps13/hmigrator#readme>
+category:       database
 homepage:       https://github.com/synaps13/hmigrator#readme
 bug-reports:    https://github.com/synaps13/hmigrator/issues
 author:         Rahimgulov Rustam

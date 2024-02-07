@@ -20,6 +20,7 @@ import Data.Text (Text, pack, splitOn, takeWhile, tail)
 import Hasql.Connection (Connection, Settings, acquire, release)
 import Hasql.Session (run, sql)
 import System.Directory (doesDirectoryExist, listDirectory, makeAbsolute)
+import System.Exit (exitWith, ExitCode (ExitFailure))
 
 data Migration = Migration
   { version :: Text,
@@ -44,7 +45,7 @@ runMigrations dir connection = do
       let session = sql (BS.pack "BEGIN; " <> migrationContent <> BS.pack " COMMIT;")
       execResult <- run session connection
       case execResult of
-        Left err -> putStrLn $ "Migration failed: " ++ show err >> error "Failed to run migration"
+        Left err -> putStrLn ("Migration failed: " ++ show err) >> exitWith (ExitFailure 1)
         Right _ -> putStrLn $ "Migration successful: " ++ file migration
 
 -- | Establish a connection to the database and run the migrmigrations
@@ -66,7 +67,7 @@ getMigration file = do
     filename = last $ splitOn "/" $ pack file
     splitFilename = case splitOn "__" filename of
       [version, description] -> (version, Data.Text.takeWhile (/= '.') description)
-      _ -> ("", "")
+      _InvalidFileName -> ("", "")
     ver =  Data.Text.tail $ fst splitFilename
     description = snd splitFilename
     getHash = hash32 <$> BS.readFile file

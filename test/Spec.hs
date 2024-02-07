@@ -3,7 +3,7 @@
 import Data.List (intercalate)
 import GHC.IO (bracket)
 import Hasql.Connection (settings)
-import Lib (withConnection, runMigrations, getFileNames, getSqlFiles)
+import Lib (getFileNames, getSqlFiles, runMigrations, withConnection)
 import System.Directory (createDirectory, removeDirectoryRecursive)
 import System.FilePath ()
 import Test.Hspec (around_, describe, hspec, it, shouldBe)
@@ -40,7 +40,7 @@ main = hspec $ do
 
     it "Runs migrations" $ do
       let set = settings "localhost" 5432 "postgres" "postgres" "postgres"
-      withConnection set (runMigrations "./test/migrations")
+      withConnection set (runMigrations "./test/good_migrations")
 
 withTempDirectory :: IO () -> IO ()
 withTempDirectory action = bracket (createDirectory "testdir") (\_ -> removeDirectoryRecursive "testdir") (const action)
